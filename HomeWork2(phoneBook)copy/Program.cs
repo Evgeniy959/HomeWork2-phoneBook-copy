@@ -74,14 +74,15 @@ namespace ConsoleApp1
 
             foreach (var element in dictionary)
             {
-                if (element.Value == name) counter++;                
-                if (counter == 1) dictionary.Remove(element.Key);
-               
-                if (counter > 1) 
+                if (name == element.Value) { counter++; }
+                //if (counter == 1) dictionary.Remove(element.Key);
+
+                if (counter > 1 && element.Value == name) 
                 {
                     foreach (var element1 in dictionary)
                     {
-                        Console.WriteLine($"{element1.Key}");
+                        //Console.WriteLine($"{element1.Key}");
+                        Console.WriteLine($"{element1.Value} - {element1.Key}");
                     }
 
                 }
@@ -90,13 +91,23 @@ namespace ConsoleApp1
                 //dictionary.Remove(element.Value);
 
                 //flag = true;
+                if (counter == 1)
+                {
+                    foreach (var element2 in dictionary)
+                    {
+                        dictionary.Remove(element2.Key);
+
+                    }
+                }
+                
 
             }
 
-            /*if (!flag)
+            if (counter == 0)//(!flag)
             {
                 Console.WriteLine("Ничего не найдено");
-            }*/
+            }
+            //counter = 0;
 
         }
 

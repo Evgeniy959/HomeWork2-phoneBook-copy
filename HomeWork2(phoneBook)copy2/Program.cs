@@ -46,16 +46,16 @@ namespace HomeWork2_phoneBook_copy2
                     case "2": // 2. Редактировать
                         Edit(phoneBook);
                         break;
-                    /*case "3": // 3. Удалить
+                    case "3": // 3. Удалить
                         Delete(phoneBook);
                         break;
-                    case "4": // 4. Найти
+                    /*case "4": // 4. Найти
                         Find(phoneBook);
-                        break;
+                        break;*/
                     case "5": // 5. Показать всё
                         PrintDictionary(phoneBook);
                         break;
-                    case "6":
+                    /*case "6":
                         phoneBook = ExportFromFile();
                         break;
                     case "7":
@@ -75,21 +75,24 @@ namespace HomeWork2_phoneBook_copy2
         }
         static string DataName()
         {
-            Console.Write("Введите имя - ");
-            var name = Console.ReadLine();
-            return name;
+            Console.Write("Введите данные - ");
+            /*Console.Write("Введите номер телефона - ");
+            /*var name = Console.ReadLine();
+            return name;*/
+            //Console.Write("Введите название группы - ");
+            return Console.ReadLine();
         }
-        static string DataPhone()
+        /*static string DataPhone()
         {
             Console.Write("Введите номер телефона - ");
             var phone = Console.ReadLine();
             return phone;
-        }
-        static string DataGroup()
+        }*/
+        /*static string DataGroup()
         {
             Console.Write("Введите название группы - ");
             return Console.ReadLine();
-        }
+        }*/
         static Dictionary<string, string> ExportFromFile()
         {
             var file = new StreamReader(Failname());
@@ -119,15 +122,19 @@ namespace HomeWork2_phoneBook_copy2
             {
                 if (element.Value == name)
                 {
-                    dictionary.Remove(element.Key);
+                    //dictionary.Remove(element.Key);
+                    Console.WriteLine($"{element.Value} - {element.Key}");
                     flag = true;
                 }
-            }
+            }            
             if (flag)
             {
-                Console.Write("Введите новый номер телефона - ");
+                Console.WriteLine("Выберите номер который нужно поменять");
                 var phone = Console.ReadLine();
-                dictionary.Add(phone, name);
+                dictionary.Remove(phone);
+                Console.Write("Введите новый номер телефона - ");
+                var phone_new = Console.ReadLine();
+                dictionary.Add(phone_new, name);
             }
             if (!flag)
             {
@@ -139,18 +146,46 @@ namespace HomeWork2_phoneBook_copy2
         {
             var flag = false;
             var name = DataName();
+            int counter = 0;
             foreach (var element in dictionary)
             {
-                if (element.Value == name)
+                if (element.Value == name) //{ flag = true; counter++; }
                 {
-                    dictionary.Remove(element.Key);
                     flag = true;
+                    counter++;
+                    
+                    //counter++;
+                    //dictionary.Remove(element.Key);
+                    Console.WriteLine($"{element.Value} - {element.Key}");
+                    /*Console.WriteLine("Выберите номер который нужно удалить");
+                    var phone = Console.ReadLine();
+                    dictionary.Remove(phone);*/
+                   
+                   
+                                        
                 }
+                if (flag && counter == 1)
+                {
+                    //foreach (var element in dictionary)
+                        dictionary.Remove(element.Key);
+                    //dictionary.Remove(phone);
+                }
+
+
             }
+            
+
+            if (flag && counter > 1)
+            {
+                Console.WriteLine("Выберите номер который нужно удалить");
+                var phone = Console.ReadLine();
+                dictionary.Remove(phone);
+            }
+            counter = 0;
             if (!flag)
             {
                 Console.WriteLine("Ничего не найдено");
-            }
+            }            
         }
 
         static void Find(Dictionary<string, string> dictionary)
@@ -175,7 +210,8 @@ namespace HomeWork2_phoneBook_copy2
         {
             var flagAdd = false;
             var name = DataName();
-            var phone = DataPhone();
+            var phone = DataName();//DataPhone();
+            var group = DataName();//DataGroup();
             foreach (var element in dictionary)
             {
                 if (element.Value == name && element.Key == phone)
